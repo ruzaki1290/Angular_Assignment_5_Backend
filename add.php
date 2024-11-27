@@ -23,13 +23,20 @@
    $sql = "INSERT INTO tasks (title, description, due_date, priority) VALUES ('$title', '$description', '$due_date', '$priority')";
 
    if (mysqli_query($con, $sql)) {
+      $taskID = mysqli_insert_id($con); // gets the ID of the newly inserted task
+      $newTask = [
+         'taskID' => $taskID,
+         'title' => $title,
+         'description' => $description,
+         'due_date' => $due_date,
+         'priority' => $priority
+      ];
       http_response_code(201);
-      echo json_encode(['message' => 'Task added successfully']);
+      echo json_encode(['data' => $newTask, 'message' => 'Task added successfully']);
    } else {
       http_response_code(500);
       echo json_encode(['message' => 'Failed to add task']);
    }
 
-   $stmt->close();
    $con->close();
 ?>
