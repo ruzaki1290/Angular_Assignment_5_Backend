@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 // handles PUT request
 $data = json_decode(file_get_contents("php://input"), true);
-$taskID = $data['data']['taskID'];
+$taskID = $data['data']['id'];
 $title = $data['data']['title'];
 $description = $data['data']['description'];
 $due_date = $data['data']['due_date'];
@@ -24,8 +24,7 @@ $priority = $data['data']['priority'];
 // logs the received data for debugging
 error_log("Received data: " . print_r($data, true));
 
-$sql = "UPDATE tasks SET title='$title', description='$description', due_date='$due_date', priority='$priority' WHERE taskID='$taskID'";
-
+$sql = "UPDATE tasks SET title='$title', description='$description', due_date='$due_date', priority='$priority' WHERE id='$taskID'";
 // logs the SQL query for debugging
 error_log("SQL query: " . $sql);
 

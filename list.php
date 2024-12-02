@@ -13,14 +13,15 @@
       exit();
    }
    $tasks = [];
-   $sql = "SELECT title, description, due_date, priority FROM tasks";
+   $sql = "SELECT id, title, description, due_date, priority FROM tasks";
 
    if ($result = mysqli_query($con, $sql)) 
    {
       $count = 0;
 
       while ($row = mysqli_fetch_assoc($result))
-      {
+      {  
+         $tasks[$count]['id'] = $row['id'];
          $tasks[$count]['title'] = $row['title'];
          $tasks[$count]['description'] = $row['description'];
          $tasks[$count]['due_date'] = $row['due_date'];
